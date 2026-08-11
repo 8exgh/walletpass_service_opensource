@@ -1,0 +1,3 @@
+# This file ensures the certificates directory is tracked in git
+# Required for Docker build process
+# Note: Actual certificates should NOT be committed to git

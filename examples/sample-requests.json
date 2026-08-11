@@ -1,0 +1,298 @@
+{
+  "eventTicket": {
+    "passType": "generic",
+    "serialNumber": "EVENT2024001",
+    "data": {
+      "headerFields": [
+        {
+          "key": "event",
+          "label": "EVENT",
+          "value": "Summer Music Festival"
+        }
+      ],
+      "primaryFields": [
+        {
+          "key": "ticketHolder",
+          "label": "TICKET HOLDER",
+          "value": "John Doe"
+        }
+      ],
+      "secondaryFields": [
+        {
+          "key": "date",
+          "label": "DATE",
+          "value": "July 15, 2024"
+        },
+        {
+          "key": "time",
+          "label": "TIME",
+          "value": "7:00 PM"
+        }
+      ],
+      "auxiliaryFields": [
+        {
+          "key": "venue",
+          "label": "VENUE",
+          "value": "Madison Square Garden"
+        },
+        {
+          "key": "section",
+          "label": "SECTION",
+          "value": "A"
+        },
+        {
+          "key": "row",
+          "label": "ROW",
+          "value": "12"
+        },
+        {
+          "key": "seat",
+          "label": "SEAT",
+          "value": "34"
+        }
+      ],
+      "backFields": [
+        {
+          "key": "terms",
+          "label": "Terms & Conditions",
+          "value": "This ticket is non-transferable and non-refundable. Please arrive 30 minutes before the event starts."
+        },
+        {
+          "key": "website",
+          "label": "More Information",
+          "value": "https://example.com/event"
+        }
+      ],
+      "barcode": {
+        "format": "PKBarcodeFormatQR",
+        "message": "EVT2024001JOHNDOE",
+        "messageEncoding": "iso-8859-1"
+      }
+    },
+    "visual": {
+      "foregroundColor": "#FFFFFF",
+      "backgroundColor": "#FF6B6B",
+      "labelColor": "#FFE5E5",
+      "logoText": "FESTIVAL 2024"
+    },
+    "metadata": {
+      "description": "Summer Music Festival Ticket",
+      "organizationName": "Festival Productions Inc.",
+      "expirationDate": "2024-07-16T04:00:00Z"
+    }
+  },
+  "membershipCard": {
+    "passType": "generic",
+    "serialNumber": "MEMBER2024001",
+    "data": {
+      "headerFields": [
+        {
+          "key": "status",
+          "label": "STATUS",
+          "value": "Gold Member"
+        }
+      ],
+      "primaryFields": [
+        {
+          "key": "memberName",
+          "label": "MEMBER",
+          "value": "Jane Smith"
+        }
+      ],
+      "secondaryFields": [
+        {
+          "key": "memberId",
+          "label": "MEMBER ID",
+          "value": "GOLD-123456"
+        },
+        {
+          "key": "since",
+          "label": "MEMBER SINCE",
+          "value": "2020"
+        }
+      ],
+      "auxiliaryFields": [
+        {
+          "key": "points",
+          "label": "POINTS",
+          "value": "15,234"
+        },
+        {
+          "key": "tier",
+          "label": "TIER",
+          "value": "Gold"
+        }
+      ],
+      "backFields": [
+        {
+          "key": "benefits",
+          "label": "Member Benefits",
+          "value": "• 20% discount on all purchases\n• Free shipping\n• Early access to sales\n• Exclusive member events"
+        },
+        {
+          "key": "contact",
+          "label": "Customer Service",
+          "value": "1-800-MEMBER (1-800-636-237)\nsupport@example.com"
+        }
+      ],
+      "barcode": {
+        "format": "PKBarcodeFormatPDF417",
+        "message": "GOLD123456",
+        "messageEncoding": "iso-8859-1"
+      }
+    },
+    "visual": {
+      "foregroundColor": "#000000",
+      "backgroundColor": "#FFD700",
+      "labelColor": "#666666",
+      "logoText": "GOLD"
+    },
+    "metadata": {
+      "description": "Gold Membership Card",
+      "organizationName": "Premium Store",
+      "expirationDate": "2025-12-31T23:59:59Z"
+    }
+  },
+  "coupon": {
+    "passType": "generic",
+    "serialNumber": "COUPON2024001",
+    "data": {
+      "primaryFields": [
+        {
+          "key": "offer",
+          "label": "",
+          "value": "50% OFF"
+        }
+      ],
+      "secondaryFields": [
+        {
+          "key": "product",
+          "label": "Valid for",
+          "value": "Any Purchase Over $100"
+        }
+      ],
+      "auxiliaryFields": [
+        {
+          "key": "validUntil",
+          "label": "VALID UNTIL",
+          "value": "Dec 31, 2024"
+        },
+        {
+          "key": "code",
+          "label": "CODE",
+          "value": "SAVE50"
+        }
+      ],
+      "backFields": [
+        {
+          "key": "terms",
+          "label": "Terms and Conditions",
+          "value": "Valid for one-time use only. Cannot be combined with other offers. Excludes sale items."
+        }
+      ],
+      "barcode": {
+        "format": "PKBarcodeFormatAztec",
+        "message": "COUPON50OFF2024",
+        "messageEncoding": "iso-8859-1"
+      }
+    },
+    "visual": {
+      "foregroundColor": "#FFFFFF",
+      "backgroundColor": "#28A745",
+      "labelColor": "#E8F5E9"
+    },
+    "metadata": {
+      "description": "50% Off Coupon",
+      "organizationName": "Super Store",
+      "expirationDate": "2024-12-31T23:59:59Z"
+    }
+  },
+  "parkingPass": {
+    "passType": "generic",
+    "serialNumber": "PARK2024001",
+    "data": {
+      "headerFields": [
+        {
+          "key": "location",
+          "label": "PARKING",
+          "value": "Downtown Garage"
+        }
+      ],
+      "primaryFields": [
+        {
+          "key": "duration",
+          "label": "VALID",
+          "value": "24 HOURS"
+        }
+      ],
+      "secondaryFields": [
+        {
+          "key": "startDate",
+          "label": "FROM",
+          "value": "Jul 1, 8:00 AM"
+        },
+        {
+          "key": "endDate",
+          "label": "UNTIL",
+          "value": "Jul 2, 8:00 AM"
+        }
+      ],
+      "auxiliaryFields": [
+        {
+          "key": "level",
+          "label": "LEVEL",
+          "value": "Any"
+        },
+        {
+          "key": "passNumber",
+          "label": "PASS #",
+          "value": "PK2024-789"
+        }
+      ],
+      "backFields": [
+        {
+          "key": "instructions",
+          "label": "Instructions",
+          "value": "Present this pass at the entrance. Keep your pass visible on dashboard."
+        },
+        {
+          "key": "address",
+          "label": "Address",
+          "value": "123 Main Street\nDowntown, NY 10001"
+        }
+      ],
+      "barcode": {
+        "format": "PKBarcodeFormatQR",
+        "message": "PARK2024789",
+        "messageEncoding": "iso-8859-1"
+      }
+    },
+    "visual": {
+      "foregroundColor": "#FFFFFF",
+      "backgroundColor": "#007BFF",
+      "labelColor": "#CCE5FF"
+    },
+    "metadata": {
+      "description": "24-Hour Parking Pass",
+      "organizationName": "City Parking Authority",
+      "expirationDate": "2024-07-02T12:00:00Z"
+    }
+  },
+  "minimalPass": {
+    "passType": "generic",
+    "serialNumber": "MIN2024001",
+    "data": {
+      "primaryFields": [
+        {
+          "key": "message",
+          "label": "PASS",
+          "value": "Valid Entry"
+        }
+      ]
+    },
+    "metadata": {
+      "description": "Simple Pass",
+      "organizationName": "Test Organization"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.local
+
+# Certificates and keys — never commit these
+certificates/*
+!certificates/.gitkeep
+!certificates/README.md
+*.p12
+*.cer
+*.certSigningRequest
+*.key
+*-key.pem
+
+# Generated passes and temp files
+temp/
+generated-passes/
+
+# Logs
+*.log
