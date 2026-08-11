@@ -169,6 +169,46 @@ npm start
 
 ## API Documentation
 
+### Request Flow
+
+The typical flow — generate a pass, download the `.pkpass`, add it to Wallet:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant App as Client (e.g. Gym Pass iOS app)
+    participant API as Express API<br/>(middleware)
+    participant Ctrl as PassController
+    participant Gen as PassGenerator
+    participant Man as ManifestGenerator
+    participant Sig as PassSignature
+    participant Zip as BundleCreator
+    participant FS as Storage<br/>(generated-passes/)
+
+    App->>API: POST /api/v1/passes/generate<br/>x-bundle-id + pass payload
+    API->>API: authenticate API key,<br/>rate limit, validate request
+    API->>Ctrl: generatePass(request)
+    Ctrl->>Gen: generatePassJson(request)
+    Gen-->>Ctrl: pass.json
+    Ctrl->>Man: generateManifest(pass.json + image assets)
+    Man-->>Ctrl: manifest.json (SHA-1 per file)
+    Ctrl->>Sig: signManifest(manifest.json)
+    Sig-->>Ctrl: signature (PKCS#7, Pass cert + WWDR)
+    Ctrl->>Zip: createPassBundle(pass.json, manifest, signature)
+    Zip-->>Ctrl: .pkpass (ZIP)
+    Ctrl->>FS: save .pkpass, record metadata with TTL
+    Ctrl-->>App: 200 { passUrl, passId, serialNumber, expiresAt }
+
+    App->>API: GET /api/v1/passes/download/:passId
+    API->>Ctrl: downloadPass(passId)
+    Ctrl->>FS: look up metadata, check TTL, load file
+    FS-->>Ctrl: .pkpass bytes
+    Ctrl-->>App: 200 application/vnd.apple.pkpass
+    App->>App: PKAddPassesViewController<br/>adds pass to Apple Wallet
+```
+
+Requests that fail authentication return `401`; expired or unknown `passId`s return `404`.
+
 ### Generate Pass
 
 **Endpoint:** `POST /api/v1/passes/generate`
