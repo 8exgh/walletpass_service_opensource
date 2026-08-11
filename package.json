@@ -6,7 +6,8 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run build && node tests/e2e.mjs",
+    "test:e2e": "node tests/e2e.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit"
   },

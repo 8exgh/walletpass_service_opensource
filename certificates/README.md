@@ -45,13 +45,13 @@ Current pass certificates are issued by the WWDR **G4** intermediate — use G4,
 
 ## Testing Certificates
 
-For local API testing without an Apple Developer account (passes will not install on real devices):
+For local API testing without an Apple Developer account (passes will not install on real devices), run the helper script from the repository root:
 
 ```bash
-openssl req -x509 -newkey rsa:2048 -keyout test-key.pem -out test-cert.pem -days 365 -nodes
-openssl pkcs12 -export -out pass-cert.p12 -inkey test-key.pem -in test-cert.pem
-# add -legacy on OpenSSL 3.x
+bash scripts/generate-test-certs.sh
 ```
+
+It generates a self-signed `pass-cert.p12` (password `test`) and a stand-in `wwdr.pem` in this directory — the same certificates the e2e test suite and CI use.
 
 ## Security Notes
 

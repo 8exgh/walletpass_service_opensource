@@ -1,6 +1,20 @@
-# Apple Wallet Pass API Service
+# Gym Pass — Apple Wallet Pass API Service
 
-A REST API service for generating Apple Wallet passes (.pkpass files) that can be added to Apple Wallet on iOS devices.
+[![CI](https://github.com/8exgh/walletpass_service_opensource/actions/workflows/ci.yml/badge.svg)](https://github.com/8exgh/walletpass_service_opensource/actions/workflows/ci.yml)
+
+A REST API service that generates **gym membership passes** for Apple Wallet (.pkpass files). A member enters their ID in the companion iOS app, the app calls this API, and the service builds and signs a Wallet pass showing the member ID, validity date, and a scannable QR code for the front desk.
+
+The pass layout is driven entirely by the request payload, so the same service works for any generic pass (event tickets, loyalty cards, coupons) — the gym membership is the reference use case, and the service ships with a gym-branded support page at `/api/v1/gympass/support`.
+
+## What it looks like
+
+A pass generated locally by this service, being added to Apple Wallet:
+
+<p align="center">
+  <img src="images/iphone16pro/iPhone_16_b.png" alt="Generated gym membership pass in Apple Wallet showing member ID, validity date, and QR code" width="320">
+</p>
+
+More screenshots (companion app and Apple Watch) are in [`images/`](images/).
 
 ## Features
 
@@ -309,27 +323,21 @@ func addPassToWallet(passUrl: String) {
 
 ## Testing
 
-### Test Certificate Setup
+### End-to-End Tests
 
-For development without Apple certificates:
+The e2e suite (`tests/e2e.mjs`) boots the compiled server with test certificates, then exercises the real API: health check, authentication rejection, gym pass generation, .pkpass download, bundle verification (required files, manifest SHA-1 hashes, PKCS#7 signature structure), and 404 handling.
 
-1. Generate test certificates:
 ```bash
-cd certificates
-openssl req -x509 -newkey rsa:2048 -keyout test-key.pem -out test-cert.pem -days 365 -nodes
-openssl pkcs12 -export -out pass-cert.p12 -inkey test-key.pem -in test-cert.pem
-# Use a simple password like "test"
-# With OpenSSL 3.x, add -legacy to the pkcs12 command so node-forge can read the file
+# One-time: generate self-signed test certificates into certificates/
+bash scripts/generate-test-certs.sh
+
+# Build and run the full e2e suite
+npm test
 ```
 
-2. Create a dummy WWDR certificate:
-```bash
-echo "-----BEGIN CERTIFICATE-----
-MIIBkjCCARmgAwIBAgIUTest0001
------END CERTIFICATE-----" > wwdr.pem
-```
+The same suite runs in GitHub Actions on every push and pull request (`.github/workflows/ci.yml`) — the badge at the top of this README shows the live result.
 
-**Note:** Test certificates will only work for API testing, not with actual iOS devices.
+**Note:** Test certificates exercise the full signing pipeline but the resulting passes will not install on real iOS devices — that requires real Apple certificates (see [Certificate Setup](#certificate-setup)).
 
 ## Troubleshooting
 
