@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/8exgh/walletpass_service_opensource/actions/workflows/ci.yml/badge.svg)](https://github.com/8exgh/walletpass_service_opensource/actions/workflows/ci.yml)
 
-A REST API service that generates **gym membership passes** for Apple Wallet (.pkpass files). A member enters their ID in the companion iOS app, the app calls this API, and the service builds and signs a Wallet pass showing the member ID, validity date, and a scannable QR code for the front desk.
+A REST API service that generates **gym membership passes** for Apple Wallet (.pkpass files). A member enters their ID in the companion iOS app, [**Gym Pass**](https://github.com/8exgh/gym_pass), the app calls this API, and the service builds and signs a Wallet pass showing the member ID, validity date, and a scannable QR code for the front desk.
 
 The pass layout is driven entirely by the request payload, so the same service works for any generic pass (event tickets, loyalty cards, coupons) — the gym membership is the reference use case, and the service ships with a gym-branded support page at `/api/v1/gympass/support`.
 
@@ -15,6 +15,17 @@ A pass generated locally by this service, being added to Apple Wallet:
 </p>
 
 More screenshots (companion app and Apple Watch) are in [`images/`](images/).
+
+## Companion iOS App: Gym Pass
+
+This service is the backend for [**8exgh/gym_pass**](https://github.com/8exgh/gym_pass), an open-source SwiftUI iOS app. The app is a thin client — it never builds or signs passes itself; this service does all of that. The split works like this:
+
+1. The app collects a member ID and calls `POST /api/v1/passes/generate`, authenticating with its bundle identifier in the `x-bundle-id` header. The payload describes a `generic` pass: member ID as the primary field, gym name in the header, today's date as *VALID FROM*, and a QR barcode carrying the member ID.
+2. The app uses a **deterministic serial number** (`GYM-<memberID>-001`), so regenerating a pass for the same member updates the existing pass in Wallet instead of creating a duplicate.
+3. This service assembles `pass.json`, computes the manifest hashes, signs the bundle with the Pass Type ID certificate (PKCS#7), zips it into a `.pkpass`, and returns a short-lived download URL.
+4. The app downloads the `.pkpass` and hands it to `PKAddPassesViewController`, and iOS adds (or replaces) the pass in Wallet.
+
+The service also hosts the app's supporting web pages: the [support page](https://walletpass.fusenv.com/api/v1/gympass/support) (`/api/v1/gympass/support`) and the [privacy policy](https://walletpass.fusenv.com/api/v1/privacy_policy) (`/api/v1/privacy_policy`). The production instance the app talks to runs at `https://walletpass.fusenv.com`.
 
 ## Features
 
